@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #232f3e;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 1rem;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .header-img {
+            width: 50px;  /* Adjust size of the watch image */
+            height: auto;
+            margin-left: 15px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+        footer {
+            background-color: #232f3e;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        form {
+            background-color: white;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input:focus {
+            border-color: #5cb85c;
+            outline: none;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -15px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Aura</h1>
+        </div>
+        <img src="watch.jpg" alt="Watch" class="header-img"> <!-- Watch Image -->
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <form id="registration">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+            <div id="nameError" class="error"></div>
+        </div>
+        
+        <div>
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" placeholder="Enter your phone number">
+            <div id="phoneError" class="error"></div>
+        </div>
+        
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email">
+            <div id="emailError" class="error"></div>
+        </div>
+        
+        <button type="button" onclick="validateForm()">Submit</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            // Reset error messages
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('phoneError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            let valid = true;
+
+            // Validate name
+            if (name === '') {
+                document.getElementById('nameError').textContent = "Name is required.";
+                valid = false;
+            }
+
+            // Validate phone number (10-digit format)
+            const phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(phone)) {
+                document.getElementById('phoneError').textContent = "Please enter a valid 10-digit phone number.";
+                valid = false;
+            }
+
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').textContent = "Please enter a valid email address.";
+                valid = false;
+            }
+
+            // If all fields are valid, redirect to another page
+            if (valid) {
+                window.location.href = "home1.html";
+            }
+        }
+    </script>
+
+    <footer>
+        <p>&copy; 2024 Aura. All rights reserved.</p>
+    </footer>
+</body>
+</html>

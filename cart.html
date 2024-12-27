@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart - Aura E-commerce</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #232f3e;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .search-bar {
+            display: flex;
+        }
+
+        .search-bar input {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .search-bar button {
+            padding: 0.5rem;
+            border: none;
+            background-color: #febd69;
+            color: #000;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        .cart-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cart-items {
+            flex: 2;
+            margin-right: 2rem;
+        }
+
+        .cart-summary {
+            flex: 1;
+            background-color: #fff;
+            padding: 1rem;
+            border: 1px solid #ddd;
+        }
+
+        .cart-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-item img {
+            max-width: 80px;
+            height: auto;
+            margin-right: 1rem;
+        }
+
+        .remove-item {
+            background-color: #ff4040;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .remove-item:hover {
+            background-color: #e02a2a;
+        }
+
+        .total-price {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .checkout-button {
+            background-color: #232f3e;
+            color: #fff;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .checkout-button:hover {
+            background-color: #555;
+        }
+
+        footer {
+            background-color: #232f3e;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Aura</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home1.html">Home</a></li>
+                <li><a href="html website.html">Shop</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="profile.html">profile</a></li>
+                <li><a href="contact1.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products...">
+            <button>Search</button>
+        </div>
+    </header>
+    <main>
+        <section class="cart-container">
+            <div class="cart-items" id="cart-items">
+                <h2>Your Cart</h2>
+                <!-- Cart items will be added here dynamically -->
+            </div>
+            <div class="cart-summary">
+                <h3>Summary</h3>
+                <p class="total-price">Total: $0.00</p>
+                <button class="checkout-button">Proceed to Checkout</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Aura. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItemsList = document.getElementById('cart-items');
+            const totalPriceElement = document.querySelector('.total-price');
+            const checkoutButton = document.querySelector('.checkout-button');
+            
+            // Simulate cart items stored in localStorage or session
+            const cart = [
+                { id: '1', name: 'Product 1', price: 10, quantity: 1, image: 'classic watch.png' },
+                { id: '2', name: 'Product 2', price: 20, quantity: 2, image: 'luxury images.webp' },
+                { id: '3', name: 'Product 3', price: 15, quantity: 1, image: 'product3.jpg' }
+            ];
+
+            function updateCartDisplay() {
+                cartItemsList.innerHTML = '';
+                let totalPrice = 0;
+
+                cart.forEach(item => {
+                    const li = document.createElement('div');
+                    li.classList.add('cart-item');
+                    li.setAttribute('data-id', item.id);
+
+                    li.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div>
+                            <h3>${item.name}</h3>
+                            <p>Price: $${item.price}</p>
+                            <p>Quantity: <span class="item-quantity">${item.quantity}</span></p>
+                        </div>
+                        <button class="remove-item">Remove</button>
+                    `;
+
+                    li.querySelector('.remove-item').addEventListener('click', () => {
+                        removeFromCart(item.id);
+                    });
+
+                    cartItemsList.appendChild(li);
+                    totalPrice += item.price * item.quantity;
+                });
+
+                totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
+            }
+
+            function removeFromCart(itemId) {
+                const itemIndex = cart.findIndex(item => item.id === itemId);
+                if (itemIndex > -1) {
+                    cart.splice(itemIndex, 1);
+                    updateCartDisplay();
+                }
+            }
+
+            // Initial cart display
+            updateCartDisplay();
+
+            // Checkout button action (just a simulation)
+            checkoutButton.addEventListener('click', () => {
+                window.location.href='checkout.html';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page - Aura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #232f3e;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: #232f3e;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        form {
+            border: 7px solid #232f3e;
+            border-radius: 20px;
+            color: black;
+            text-align: center;
+            margin: 100px auto;
+            padding: 50px;
+            background-color: white;
+            width: 50%;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        form button {
+            background-color: greenyellow;
+            width: 100px;
+            height: 35px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #e5e500;
+        }
+
+        .form-error {
+            color: red;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Aura</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="html website.html">shop</a></li>
+                <li><a href="cart.html">cart</a></li>
+                <li><a href="profile.html">profile</a></li>
+                <li><a href="contact1.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <form id="registration">
+        <h2>Register</h2>
+        <div id="error-message" class="form-error"></div>
+
+        <label for="name">NAME :</label>
+        <input type="text" id="name" placeholder="Enter your name">
+        
+        <label for="phone">PHONE NUMBER :</label>
+        <input type="text" id="phone" placeholder="Enter your phone number">
+        
+        <label for="email">EMAIL :</label>
+        <input type="email" id="email" placeholder="Enter your email">
+        
+        <button type="button" onclick="validateForm()">ENTER</button>
+    </form>
+
+    <footer>
+        <p>&copy; 2024 Aura. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function validateForm() {
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const errorMessage = document.getElementById('error-message');
+
+            // Clear any previous error message
+            errorMessage.textContent = '';
+
+            // Validate name
+            if (name === '') {
+                errorMessage.textContent = 'Name is required.';
+                return;
+            }
+
+            // Validate phone number
+            const phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(phone)) {
+                errorMessage.textContent = 'Please enter a valid 10-digit phone number.';
+                return;
+            }
+
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorMessage.textContent = 'Please enter a valid email address.';
+                return;
+            }
+
+            // If validation passes, redirect to the next page
+            window.location.href = "home1.html";
+        }
+    </script>
+</body>
+</html>
